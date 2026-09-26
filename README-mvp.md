@@ -1,6 +1,6 @@
-# Proof-of-Work Hiring — MVP
+# PROV — MVP
 
-Resume screening + live anti-gaming verification. Next.js web app over two
+PROV: resume screening + live anti-gaming verification. Next.js web app over two
 pre-built Python ML services, SQLite for storage.
 
 ## Architecture

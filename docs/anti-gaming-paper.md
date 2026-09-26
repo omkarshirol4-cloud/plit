@@ -1,6 +1,6 @@
 # Anti-Gaming Architecture: Rank Scoring & Fraud Defense
 
-*Verifiable Proof-of-Work Engineering Discovery & Hiring Platform*
+*PROV — Verifiable Proof-of-Work Engineering Discovery & Hiring Platform*
 
 ## 1. Ranking Formula
 

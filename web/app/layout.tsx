@@ -3,7 +3,7 @@ import "./globals.css";
 import { TopNav } from "@/components/TopNav";
 
 export const metadata: Metadata = {
-  title: "Proof-of-Work Hiring",
+  title: "PROV",
   description: "Verifiable proof-of-work hiring: graded assessments, live verification and transparent ranking.",
 };
 

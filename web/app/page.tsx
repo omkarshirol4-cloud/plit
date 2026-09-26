@@ -17,7 +17,9 @@ type Health = {
  * desktop, so there is no scrolling to discover the two doors into the app.
  *
  * Detail lives on its own pages (/how-it-works, /about) rather than as sections
- * below the fold, which is what kept this short.
+ * below the fold, which is what kept this short. A previous "Proof of Work /
+ * Verification / Discovery" tagline strip was removed as well: it restated the
+ * heading and the sentence below it without adding a fact.
  *
  * `useRole` is the existing demo mechanism: choosing a side writes the role to
  * localStorage and routes into it, so the in-app navigation matches where you
@@ -66,7 +68,7 @@ export default function Home() {
             <button className="lg" onClick={() => enter("candidate")}>
               I&apos;m a Candidate
             </button>
-            <p>Build your profile through verified proof of work.</p>
+            <p>Build a profile through verified proof of work.</p>
           </div>
 
           <div className="landing-role">
@@ -76,19 +78,10 @@ export default function Home() {
             <p>Discover candidates through demonstrated skills.</p>
           </div>
         </div>
-
-        <p className="landing-strip" aria-label="What the platform does">
-          {["Proof of Work", "Verification", "Discovery"].map((t, i, arr) => (
-            <span key={t}>
-              {t}
-              {i < arr.length - 1 && <span aria-hidden="true"> &bull; </span>}
-            </span>
-          ))}
-        </p>
       </div>
 
       <div className="landing-foot">
-        <span>&copy; Proof-of-Work Hiring</span>
+        <span>&copy; PROV</span>
         <span className="landing-status" aria-live="polite">
           {!health ? (
             <span className="muted">Checking services&hellip;</span>

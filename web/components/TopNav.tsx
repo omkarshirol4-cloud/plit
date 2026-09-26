@@ -8,10 +8,11 @@ import { CANDIDATE_NAV, RECRUITER_NAV, useRole, type Role } from "@/lib/session"
 /**
  * Global navigation, in two modes.
  *
- * Marketing (anything outside the app) shows four things and nothing else:
- * Home, How It Works, About, Get started. A first-time visitor should not be
- * shown dashboard routes before they have chosen a role, so the product links
- * do not exist until a role is picked.
+ * Marketing (anything outside the app) shows three things and nothing else:
+ * Home, How It Works, About. A first-time visitor should not be shown dashboard
+ * routes before they have chosen a role, so the product links do not exist
+ * until a role is picked. The role choice itself lives on the landing page, so
+ * the header carries no duplicate call to action.
  *
  * Product shows only that role's screens, plus the demo role switcher. There is
  * no auth, so the switcher stays visible rather than pretending to be a
@@ -53,7 +54,7 @@ export function TopNav() {
           <span className="brand-mark" aria-hidden="true">
             P
           </span>
-          Proof of Work
+          PROV
         </Link>
 
         <nav className="nav-desktop" aria-label="Main">
@@ -79,18 +80,13 @@ export function TopNav() {
 
         <span className="spacer" />
 
-        {!inApp ? (
-          <Link href="/candidate" className="btn-link nav-cta nav-desktop">
-            Get started
-          </Link>
-        ) : (
+        {inApp &&
           ready && (
             <div className="role-switch" role="group" aria-label="Demo role switcher">
               <RoleButton active={role === "candidate"} onClick={() => setRole("candidate")} role="candidate" />
               <RoleButton active={role === "recruiter"} onClick={() => setRole("recruiter")} role="recruiter" />
             </div>
-          )
-        )}
+          )}
 
         <button className="nav-toggle" aria-expanded={menuOpen} aria-controls="mobile-nav" onClick={() => setMenuOpen((v) => !v)}>
           {menuOpen ? "Close" : "Menu"}
@@ -113,7 +109,7 @@ export function TopNav() {
                 </Link>
               ))}
 
-          {inApp ? (
+          {inApp && (
             <>
               <div className="role-switch" role="group" aria-label="Demo role switcher" style={{ marginTop: 8 }}>
                 <RoleButton active={role === "candidate"} onClick={() => setRole("candidate")} role="candidate" />
@@ -123,10 +119,6 @@ export function TopNav() {
                 About
               </Link>
             </>
-          ) : (
-            <Link href="/candidate" className="btn-link nav-cta">
-              Get started
-            </Link>
           )}
         </div>
       </div>
