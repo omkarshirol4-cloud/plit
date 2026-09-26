@@ -142,10 +142,14 @@ def score_lipsync(video_path: str) -> dict:
         confidence: raw SyncNet confidence value, or None if scoring failed
         note: present only on a non-fatal fallback (e.g. couldn't parse output)
     """
-    repo_dir = _repo_dir()
+    # _repo_dir() raises LipSyncError when SYNCNET_REPO_DIR is unset. That
+    # has to be inside the try: the module's contract is to fail neutral
+    # (0.5) rather than propagate, and an unset env var is the most likely
+    # way to hit that path -- previously it escaped and 500'd /verify.
     tmp_dir = tempfile.mkdtemp(prefix="syncnet_")
 
     try:
+        repo_dir = _repo_dir()
         output = _run_demo_syncnet(video_path, tmp_dir, repo_dir)
         confidence = _parse_confidence(output)
     except LipSyncError as exc:

@@ -1,5 +1,25 @@
+﻿# Python
+.venv/
 __pycache__/
 *.pyc
+
+# local scratch directories
 clips/
 tmp/
+
+# vendored third-party checkout
 syncnet_python/
+
+# Node / Next build output
+node_modules/
+.next/
+.next-build/
+*.tsbuildinfo
+
+# runtime state, not source: the SQLite database is created on first boot and
+# uploaded files are written at request time
+web/data/
+web/.uploads/
+
+# logs
+.logs-*
