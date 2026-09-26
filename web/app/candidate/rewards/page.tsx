@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { TokenBalanceCard } from "@/components/TokenBalanceCard";
 import { TransactionTable } from "@/components/TransactionTable";
-import { ErrorState, Loading, NoCandidate, StatCard } from "@/components/ui";
+import { ErrorState, NoCandidate, StatCard } from "@/components/ui";
+import { DashboardSkeleton } from "@/components/Skeletons";
 import { useCandidateId } from "@/lib/client";
 import { getJson } from "@/lib/session";
 import type { CandidateWallet, TokenTransaction } from "@/lib/types";
@@ -51,7 +52,7 @@ export default function RewardsPage() {
     };
   }, [candidateId]);
 
-  if (!ready || loading) return <Loading label="Loading rewards" />;
+  if (!ready || loading) return <DashboardSkeleton />;
   if (!candidateId)
     return (
       <>

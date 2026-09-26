@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
-import { parseJsonArray, parseJsonObject, type RankedCandidate } from "@/lib/types";
+import { parseJsonArray, type RankedCandidate } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";

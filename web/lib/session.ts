@@ -37,21 +37,25 @@ export function useRole(): [Role, (r: Role) => void, boolean] {
   return [role, setRole, ready];
 }
 
+/**
+ * Top navigation, four items per role.
+ *
+ * Deliberately short. The rest of each role's screens are still reachable from
+ * its dashboard -- assessments, achievements, verification and rewards are
+ * linked from there, and rewards additionally from assessments and achievements
+ * -- so nothing is orphaned by keeping these out of the header.
+ */
 export const CANDIDATE_NAV = [
   { href: "/candidate", label: "Dashboard" },
-  { href: "/candidate/jobs", label: "Jobs" },
-  { href: "/candidate/applications", label: "Applications" },
-  { href: "/candidate/assessments", label: "Assessments" },
-  { href: "/candidate/rewards", label: "Rewards" },
-  { href: "/candidate/achievements", label: "Achievements" },
-  { href: "/candidate/verification", label: "Verification" },
+  { href: "/candidate/jobs", label: "Challenges" },
+  { href: "/candidate/applications", label: "My Work" },
   { href: "/candidate/profile", label: "Profile" },
 ] as const;
 
 export const RECRUITER_NAV = [
   { href: "/recruiter", label: "Dashboard" },
+  { href: "/recruiter/applicants", label: "Discover" },
   { href: "/recruiter/jobs", label: "Jobs" },
-  { href: "/recruiter/applicants", label: "Applicants" },
   { href: "/recruiter/shortlists", label: "Shortlists" },
 ] as const;
 

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { ensureUploadDir, getDb, newId, nowIso, UPLOAD_DIR } from "@/lib/db";
+import { ensureUploadDir, getDb, nowIso, UPLOAD_DIR } from "@/lib/db";
 import { extractResumeText } from "@/lib/ml";
 
 export const runtime = "nodejs";

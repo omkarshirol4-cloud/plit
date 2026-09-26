@@ -4,7 +4,8 @@ import Link from "next/link";
 import { use, useCallback, useEffect, useState } from "react";
 import { NotRankedList, RankedCandidateTable } from "@/components/RankedCandidateTable";
 import { RoleGate } from "@/components/TopNav";
-import { ErrorState, Loading, formatDateTime } from "@/components/ui";
+import { ErrorState, formatDateTime } from "@/components/ui";
+import { TableSkeleton } from "@/components/Skeletons";
 import { getJson } from "@/lib/session";
 import type { RankedCandidate } from "@/lib/types";
 
@@ -79,9 +80,9 @@ function JobShortlistInner({ params }: { params: Promise<{ id: string }> }) {
     }
   }
 
-  if (loading && !data) return <Loading label="Loading shortlist" />;
+  if (loading && !data) return <TableSkeleton rows={6} cols={6} />;
   if (error && !data) return <ErrorState message={error} onRetry={() => load(jobId)} />;
-  if (!data) return <Loading label="Loading shortlist" />;
+  if (!data) return <TableSkeleton rows={6} cols={6} />;
 
   const noApplicants = data.applicantCount === 0;
 

@@ -18,7 +18,6 @@ declare global {
   // Next's dev server re-evaluates modules on every hot reload; without
   // caching on globalThis we'd leak a new connection per reload until
   // Windows starts refusing file handles.
-  // eslint-disable-next-line no-var
   var __hrDb: DatabaseSync | undefined;
 }
 

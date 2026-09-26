@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { RoleGate } from "@/components/TopNav";
-import { EmptyState, ErrorState, Loading, StatCard, formatDate } from "@/components/ui";
+import { EmptyState, ErrorState, StatCard, formatDate } from "@/components/ui";
+import { ChallengeGridSkeleton } from "@/components/Skeletons";
 import { getJson } from "@/lib/session";
 import type { JobRow } from "@/lib/candidate-data";
 
@@ -43,7 +44,7 @@ function RecruiterJobsInner() {
     };
   }, []);
 
-  if (loading) return <Loading label="Loading jobs" />;
+  if (loading) return <ChallengeGridSkeleton />;
   if (error) return <ErrorState message={error} />;
 
   const needle = q.trim().toLowerCase();

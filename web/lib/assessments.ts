@@ -1,5 +1,5 @@
 import { getDb, newId, nowIso } from "./db.ts";
-import { earnWithAmount, TokenError } from "./tokens.ts";
+import { earnWithAmount } from "./tokens.ts";
 
 /**
  * Assessments — a deliberately small multiple-choice system.

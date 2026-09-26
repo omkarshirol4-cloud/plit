@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { EmptyState, ErrorState, Loading, NoCandidate } from "@/components/ui";
+import { EmptyState, ErrorState, NoCandidate } from "@/components/ui";
+import { ChallengeGridSkeleton } from "@/components/Skeletons";
 import { useCandidateId } from "@/lib/client";
 import { getJson } from "@/lib/session";
 import type { Assessment, AssessmentAttempt } from "@/lib/types";
@@ -50,7 +51,7 @@ export default function AssessmentsPage() {
     };
   }, [candidateId]);
 
-  if (!ready || loading) return <Loading label="Loading assessments" />;
+  if (!ready || loading) return <ChallengeGridSkeleton />;
   if (error) return <ErrorState message={error} />;
 
   const attemptFor = (assessmentId: string) => attempts.find((a) => a.assessmentId === assessmentId);

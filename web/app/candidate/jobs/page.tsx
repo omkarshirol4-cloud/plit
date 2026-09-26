@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState, Suspense } from "react";
 import { JobCard } from "@/components/candidate-cards";
-import { NoCandidate, ErrorState, Loading, EmptyState } from "@/components/ui";
+import { NoCandidate, ErrorState, EmptyState } from "@/components/ui";
+import { ChallengeGridSkeleton } from "@/components/Skeletons";
 import { useCandidateBundle } from "@/lib/candidate-data";
 import { useCandidateId } from "@/lib/client";
 
@@ -16,7 +17,7 @@ import { useCandidateId } from "@/lib/client";
  */
 export default function CandidateJobs() {
   return (
-    <Suspense fallback={<Loading label="Loading jobs" />}>
+    <Suspense fallback={<ChallengeGridSkeleton />}>
       <JobsInner />
     </Suspense>
   );
@@ -60,7 +61,7 @@ function JobsInner() {
     });
   }, [data?.jobs, q, onlyOpen]);
 
-  if (!ready) return <Loading label="Loading jobs" />;
+  if (!ready) return <ChallengeGridSkeleton />;
   if (!candidateId) {
     return (
       <>
@@ -69,7 +70,7 @@ function JobsInner() {
       </>
     );
   }
-  if (loading) return <Loading label="Loading jobs" />;
+  if (loading) return <ChallengeGridSkeleton />;
   if (error) return <ErrorState message={error} onRetry={reload} />;
 
   const appliedCount = (data?.applications ?? []).length;

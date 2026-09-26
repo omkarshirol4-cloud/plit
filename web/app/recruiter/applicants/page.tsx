@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { RoleGate } from "@/components/TopNav";
-import { EmptyState, ErrorState, Loading, StatCard, StatusPill, VerificationPill, formatDate } from "@/components/ui";
+import { EmptyState, ErrorState, StatCard, StatusPill, VerificationPill, formatDate } from "@/components/ui";
+import { CandidateGridSkeleton } from "@/components/Skeletons";
 import { rollupByJob, useRecruiterData } from "@/lib/recruiter-data";
 
 type Filter = "all" | "unscreened" | "verified" | "unverified" | "review";
@@ -30,9 +31,9 @@ function RecruiterApplicantsInner() {
 
   const jobs = useMemo(() => rollupByJob(data), [data]);
 
-  if (loading && !data) return <Loading label="Loading applicants" />;
+  if (loading && !data) return <CandidateGridSkeleton />;
   if (error && !data) return <ErrorState message={error} onRetry={reload} />;
-  if (!data) return <Loading label="Loading applicants" />;
+  if (!data) return <CandidateGridSkeleton />;
 
   const needle = q.trim().toLowerCase();
   const apps = data.applications.filter((a) => {

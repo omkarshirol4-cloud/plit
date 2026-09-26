@@ -23,3 +23,9 @@ web/.uploads/
 
 # logs
 .logs-*
+*.log
+
+# secrets and local env overrides (committed templates stay tracked)
+.env
+.env.*
+!.env.example

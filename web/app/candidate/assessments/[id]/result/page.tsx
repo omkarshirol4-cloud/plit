@@ -4,7 +4,8 @@ import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import { AchievementToast, takeUnlocked } from "@/components/AchievementToast";
 import { TokenBalanceCard } from "@/components/TokenBalanceCard";
-import { ErrorState, Loading, StatCard, formatDateTime } from "@/components/ui";
+import { ErrorState, StatCard, formatDateTime } from "@/components/ui";
+import { TableSkeleton } from "@/components/Skeletons";
 import { useCandidateId } from "@/lib/client";
 import { getJson } from "@/lib/session";
 import type { Assessment, AssessmentAttempt, CandidateWallet, UnlockedAchievement } from "@/lib/types";
@@ -66,7 +67,7 @@ export default function AssessmentResultPage({ params }: { params: Promise<{ id:
     };
   }, [candidateId, assessmentId]);
 
-  if (!ready || loading) return <Loading label="Loading result" />;
+  if (!ready || loading) return <TableSkeleton rows={6} cols={3} />;
 
   if (!candidateId) {
     return (

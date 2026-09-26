@@ -6,7 +6,8 @@ import { AchievementToast } from "@/components/AchievementToast";
 import { ApplicationRowView, JobCard } from "@/components/candidate-cards";
 import { CandidatePicker, CandidateProfileForm } from "@/components/candidate-identity";
 import { TokenBalanceCard } from "@/components/TokenBalanceCard";
-import { EmptyState, ErrorState, Loading, VerificationPill, formatDate } from "@/components/ui";
+import { EmptyState, ErrorState, VerificationPill, formatDate } from "@/components/ui";
+import { DashboardSkeleton } from "@/components/Skeletons";
 import { useCandidateBundle } from "@/lib/candidate-data";
 import { useCandidateId } from "@/lib/client";
 import { getJson } from "@/lib/session";
@@ -50,7 +51,7 @@ export default function CandidateDashboard() {
 
   const dismiss = useCallback(() => setUnlocked([]), []);
 
-  if (!ready) return <Loading label="Loading your dashboard" />;
+  if (!ready) return <DashboardSkeleton />;
 
   if (!candidateId) {
     return (
@@ -65,9 +66,9 @@ export default function CandidateDashboard() {
     );
   }
 
-  if (loading) return <Loading label="Loading your dashboard" />;
+  if (loading) return <DashboardSkeleton />;
   if (error) return <ErrorState message={error} onRetry={reload} />;
-  if (!data) return <Loading label="Loading your dashboard" />;
+  if (!data) return <DashboardSkeleton />;
 
   const { dashboard, applications, jobs } = data;
   const { candidate, profile, wallet, verification, assessments, achievements } = dashboard;

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { ApplicationRowView } from "@/components/candidate-cards";
-import { EmptyState, ErrorState, Loading, NoCandidate } from "@/components/ui";
+import { EmptyState, ErrorState, NoCandidate } from "@/components/ui";
+import { TableSkeleton } from "@/components/Skeletons";
 import { useCandidateBundle } from "@/lib/candidate-data";
 import { useCandidateId } from "@/lib/client";
 
@@ -17,7 +18,7 @@ export default function MyApplications() {
   const [candidateId, , ready] = useCandidateId();
   const { data, error, loading, reload } = useCandidateBundle(candidateId, ready);
 
-  if (!ready) return <Loading label="Loading applications" />;
+  if (!ready) return <TableSkeleton rows={6} cols={5} />;
   if (!candidateId)
     return (
       <>
@@ -25,9 +26,9 @@ export default function MyApplications() {
         <NoCandidate what="your applications" />
       </>
     );
-  if (loading) return <Loading label="Loading applications" />;
+  if (loading) return <TableSkeleton rows={6} cols={5} />;
   if (error) return <ErrorState message={error} onRetry={reload} />;
-  if (!data) return <Loading label="Loading applications" />;
+  if (!data) return <TableSkeleton rows={6} cols={5} />;
 
   const apps = data.applications;
   const awaiting = apps.filter((a) => a.screeningRankScore === null).length;

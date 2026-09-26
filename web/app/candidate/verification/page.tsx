@@ -5,7 +5,8 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { VerificationRecorder } from "@/components/VerificationRecorder";
 import { VerificationResultCard } from "@/components/VerificationResultCard";
-import { EmptyState, ErrorState, Loading, NoCandidate, VerificationPill, formatDateTime } from "@/components/ui";
+import { EmptyState, ErrorState, NoCandidate, VerificationPill, formatDateTime } from "@/components/ui";
+import { VerificationSkeleton, DetailSkeleton } from "@/components/Skeletons";
 import { useCandidateBundle } from "@/lib/candidate-data";
 import { useCandidateId } from "@/lib/client";
 import { getJson } from "@/lib/session";
@@ -20,7 +21,7 @@ import type { VerificationSession } from "@/lib/types";
  */
 export default function VerificationPage() {
   return (
-    <Suspense fallback={<Loading label="Loading verification" />}>
+    <Suspense fallback={<VerificationSkeleton />}>
       <VerificationHub />
     </Suspense>
   );
@@ -63,7 +64,7 @@ function VerificationHub() {
     };
   }, [selectedId]);
 
-  if (!ready) return <Loading label="Loading verification" />;
+  if (!ready) return <VerificationSkeleton />;
   if (!candidateId)
     return (
       <>
@@ -71,7 +72,7 @@ function VerificationHub() {
         <NoCandidate what="verification" />
       </>
     );
-  if (loading) return <Loading label="Loading verification" />;
+  if (loading) return <VerificationSkeleton />;
   if (error) return <ErrorState message={error} onRetry={reload} />;
 
   const pending = apps.filter((a) => !a.verificationResult);
@@ -163,7 +164,7 @@ function VerificationHub() {
               <>
                 <h2 style={{ marginTop: 0 }}>{selected.jobTitle}</h2>
                 {sessionLoading ? (
-                  <Loading label="Loading result" />
+                  <DetailSkeleton />
                 ) : session ? (
                   <VerificationResultCard
                     session={session}

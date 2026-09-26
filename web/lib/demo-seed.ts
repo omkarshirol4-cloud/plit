@@ -15,7 +15,6 @@ import {
   DEMO_VERIFICATIONS,
   type DemoCandidateSpec,
 } from "./demo-data.ts";
-import { isDemoId } from "./demo-marker.ts";
 
 /**
  * Demo seed / reset engine.

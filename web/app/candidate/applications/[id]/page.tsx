@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import { NotVerifiedYet, VerificationResultCard } from "@/components/VerificationResultCard";
-import { ErrorState, Loading } from "@/components/ui";
+import { ErrorState } from "@/components/ui";
+import { DetailSkeleton } from "@/components/Skeletons";
 import { getJson } from "@/lib/session";
 import type { ApplicationRow } from "@/lib/candidate-data";
 import type { VerificationSession } from "@/lib/types";
@@ -45,7 +46,7 @@ export default function ApplicationDetail({ params }: { params: Promise<{ id: st
     };
   }, [applicationId]);
 
-  if (loading) return <Loading label="Loading application" />;
+  if (loading) return <DetailSkeleton />;
   if (error) return <ErrorState message={error} />;
 
   if (!application) {

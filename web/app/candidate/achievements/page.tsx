@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { AchievementToast } from "@/components/AchievementToast";
-import { EmptyState, ErrorState, Loading, NoCandidate, formatDateTime } from "@/components/ui";
+import { EmptyState, ErrorState, NoCandidate, formatDateTime } from "@/components/ui";
+import { DashboardSkeleton } from "@/components/Skeletons";
 import { useCandidateId } from "@/lib/client";
 import { getJson } from "@/lib/session";
 import type { Achievement, UnlockedAchievement } from "@/lib/types";
@@ -52,7 +53,7 @@ export default function AchievementsPage() {
     };
   }, [candidateId]);
 
-  if (!ready || loading) return <Loading label="Loading achievements" />;
+  if (!ready || loading) return <DashboardSkeleton />;
   if (!candidateId)
     return (
       <>

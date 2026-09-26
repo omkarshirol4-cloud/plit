@@ -4,15 +4,21 @@ import { TopNav } from "@/components/TopNav";
 
 export const metadata: Metadata = {
   title: "Proof-of-Work Hiring",
-  description: "Resume screening + live anti-gaming verification",
+  description: "Verifiable proof-of-work hiring: graded assessments, live verification and transparent ranking.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
+        {/* First tab stop on the page, invisible until focused. */}
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <TopNav />
-        <main className="shell">{children}</main>
+        <main className="shell" id="main" tabIndex={-1}>
+          {children}
+        </main>
       </body>
     </html>
   );

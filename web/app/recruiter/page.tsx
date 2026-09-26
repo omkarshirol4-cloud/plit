@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { RoleGate } from "@/components/TopNav";
-import { EmptyState, ErrorState, Loading, StatCard, VerificationPill, formatDate } from "@/components/ui";
+import { EmptyState, ErrorState, StatCard, VerificationPill, formatDate } from "@/components/ui";
+import { DashboardSkeleton } from "@/components/Skeletons";
 import { rollupByJob, useRecruiterData } from "@/lib/recruiter-data";
 
 /**
@@ -22,9 +23,9 @@ export default function RecruiterDashboard() {
 function RecruiterDashboardInner() {
   const { data, loading, error, reload } = useRecruiterData();
 
-  if (loading && !data) return <Loading label="Loading dashboard" />;
+  if (loading && !data) return <DashboardSkeleton />;
   if (error && !data) return <ErrorState message={error} onRetry={reload} />;
-  if (!data) return <Loading label="Loading dashboard" />;
+  if (!data) return <DashboardSkeleton />;
 
   const jobs = rollupByJob(data);
   const apps = data.applications;

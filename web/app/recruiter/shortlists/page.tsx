@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import { RoleGate } from "@/components/TopNav";
-import { DemoBadge, DemoNotice, EmptyState, ErrorState, Loading, StatCard, formatDate } from "@/components/ui";
+import { DemoBadge, DemoNotice, EmptyState, ErrorState, StatCard, formatDate } from "@/components/ui";
+import { TableSkeleton } from "@/components/Skeletons";
 import { DEMO_SCORE_NOTE, isDemoId } from "@/lib/demo-marker";
 import { rollupByJob, useRecruiterData } from "@/lib/recruiter-data";
 
@@ -26,9 +27,9 @@ function RecruiterShortlistsInner() {
   const { data, loading, error, reload } = useRecruiterData();
   const [showEmpty, setShowEmpty] = useState(false);
 
-  if (loading && !data) return <Loading label="Loading shortlists" />;
+  if (loading && !data) return <TableSkeleton rows={5} cols={6} />;
   if (error && !data) return <ErrorState message={error} onRetry={reload} />;
-  if (!data) return <Loading label="Loading shortlists" />;
+  if (!data) return <TableSkeleton rows={5} cols={6} />;
 
   const jobs = rollupByJob(data);
   const withApplicants = jobs.filter((j) => j.applicants.length > 0);

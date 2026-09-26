@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { use, useState } from "react";
-import { EmptyState, ErrorState, Loading, StatusPill, VerificationPill, formatDate } from "@/components/ui";
+import { EmptyState, ErrorState, StatusPill, VerificationPill, formatDate } from "@/components/ui";
+import { DetailSkeleton } from "@/components/Skeletons";
 import { useCandidateBundle } from "@/lib/candidate-data";
 import { postJson, useCandidateId } from "@/lib/client";
 import { recommendedScoreLabel } from "@/lib/score-label";
@@ -23,10 +24,10 @@ export default function JobDetail({ params }: { params: Promise<{ id: string }> 
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<{ kind: "ok" | "error" | "info"; text: string } | null>(null);
 
-  if (!ready) return <Loading label="Loading job" />;
-  if (loading) return <Loading label="Loading job" />;
+  if (!ready) return <DetailSkeleton />;
+  if (loading) return <DetailSkeleton />;
   if (error) return <ErrorState message={error} onRetry={reload} />;
-  if (!data) return <Loading label="Loading job" />;
+  if (!data) return <DetailSkeleton />;
 
   const job: JobRow | undefined = data.jobs.find((j) => j.id === id);
   if (!job) {

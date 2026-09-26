@@ -5,7 +5,8 @@ import { use, useEffect, useState } from "react";
 import { ScoreBreakdown } from "@/components/RankedCandidateTable";
 import { RoleGate } from "@/components/TopNav";
 import { NotVerifiedYet, VerificationResultCard } from "@/components/VerificationResultCard";
-import { ErrorState, Loading, StatCard, StatusPill, formatDate } from "@/components/ui";
+import { ErrorState, StatCard, StatusPill, formatDate } from "@/components/ui";
+import { ProfileSkeleton } from "@/components/Skeletons";
 import { getJson } from "@/lib/session";
 import type { ApplicationRow } from "@/lib/candidate-data";
 import type { JobRow } from "@/lib/candidate-data";
@@ -80,7 +81,7 @@ function RecruiterCandidateInner({ params }: { params: Promise<{ applicationId: 
     };
   }, [applicationId]);
 
-  if (loading) return <Loading label="Loading applicant" />;
+  if (loading) return <ProfileSkeleton />;
   if (error) return <ErrorState message={error} />;
 
   if (!application) {

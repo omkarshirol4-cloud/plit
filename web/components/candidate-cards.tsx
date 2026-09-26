@@ -23,7 +23,7 @@ export function ApplicationScore({ a }: { a: ApplicationRow }) {
 }
 
 /** Score for a job card. Unapplied jobs never show a number. */
-export function JobScore({ job, application }: { job: JobRow; application?: ApplicationRow }) {
+export function JobScore({ application }: { application?: ApplicationRow }) {
   const rankScore = application ? application.screeningRankScore : null;
   return <ScoreText label={recommendedScoreLabel(rankScore)} />;
 }
@@ -42,7 +42,7 @@ export function JobCard({ job, application }: { job: JobRow; application?: Appli
             {job.location ? ` · ${job.location}` : ""} · posted {formatDate(job.createdAt)}
           </div>
         </div>
-        {closed ? <span className="badge none">closed</span> : null}
+        {closed ? <span className="badge none">closed</span> : applied ? <span className="badge ok">applied</span> : null}
       </div>
 
       {job.requiredSkills.length > 0 && (
@@ -57,26 +57,18 @@ export function JobCard({ job, application }: { job: JobRow; application?: Appli
 
       {job.description && <p className="job-card-desc">{job.description}</p>}
 
+      {/*
+        One action, not two. "View Job" and "Apply" both pointed at
+        /candidate/jobs/[id], so the pair was the same link twice; applied state
+        is a badge in the header instead of a disabled button.
+      */}
       <div className="job-card-foot">
         <span className="job-scoreline">
-          <JobScore job={job} application={application} />
+          <JobScore application={application} />
         </span>
-        <span className="row">
-          <Link href={`/candidate/jobs/${job.id}`}>
-            <button className="secondary small">View Job</button>
-          </Link>
-          {applied ? (
-            <Link href="/candidate/applications">
-              <button className="small" disabled>
-                Applied
-              </button>
-            </Link>
-          ) : (
-            <Link href={`/candidate/jobs/${job.id}`}>
-              <button className="small">Apply</button>
-            </Link>
-          )}
-        </span>
+        <Link href={`/candidate/jobs/${job.id}`} className="btn-link small">
+          {applied ? "View" : "Apply"}
+        </Link>
       </div>
     </div>
   );

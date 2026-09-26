@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { TransactionTable } from "@/components/TransactionTable";
-import { ErrorState, Loading, NoCandidate } from "@/components/ui";
+import { ErrorState, NoCandidate } from "@/components/ui";
+import { TableSkeleton } from "@/components/Skeletons";
 import { useCandidateId } from "@/lib/client";
 import { getJson } from "@/lib/session";
 import type { TokenTransaction } from "@/lib/types";
@@ -55,7 +56,7 @@ export default function RewardsHistoryPage() {
     };
   }, [candidateId, page]);
 
-  if (!ready || loading) return <Loading label="Loading history" />;
+  if (!ready || loading) return <TableSkeleton rows={7} cols={4} />;
 
   if (!candidateId) {
     return (

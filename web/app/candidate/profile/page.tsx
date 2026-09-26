@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CandidateProfileForm } from "@/components/candidate-identity";
-import { EmptyState, ErrorState, Loading, StatCard, formatDate } from "@/components/ui";
+import { EmptyState, ErrorState, StatCard, formatDate } from "@/components/ui";
+import { ProfileSkeleton } from "@/components/Skeletons";
 import { useCandidateBundle } from "@/lib/candidate-data";
 import { useCandidateId } from "@/lib/client";
 import { getJson } from "@/lib/session";
@@ -44,7 +45,7 @@ export default function ProfilePage() {
     };
   }, [candidateId]);
 
-  if (!ready || loading) return <Loading label="Loading profile" />;
+  if (!ready || loading) return <ProfileSkeleton />;
   if (!candidateId)
     return (
       <>
@@ -54,7 +55,7 @@ export default function ProfilePage() {
     );
   if (error) return <ErrorState message={error} onRetry={reload} />;
   if (detailError) return <ErrorState message={detailError} onRetry={reload} />;
-  if (!data) return <Loading label="Loading profile" />;
+  if (!data) return <ProfileSkeleton />;
 
   const { profile, assessments, wallet } = data.dashboard;
   const completedAssessments = assessments.filter((a) => a.completed);
